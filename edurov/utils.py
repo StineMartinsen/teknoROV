@@ -3,6 +3,7 @@ Different utility functions practical for ROV control
 """
 
 import ctypes
+from operator import truediv
 import os
 import platform
 import signal
@@ -77,11 +78,13 @@ def check_requirements():
     if detect_pi():
         #camera = subprocess.check_output(['vcgencmd','get_camera']).decode().rstrip()
         camera = PiCamera()
-        if '0' in camera:
-            warning('Camera not enabled or connected properly')
-            return False
-        else:
-            return True
+        return True
+        
+        # if '0' in camera:
+        #     warning('Camera not enabled or connected properly')
+        #     return False
+        # else:
+        #     return True
     else:
         warning('eduROV only works on a raspberry pi')
         return False
