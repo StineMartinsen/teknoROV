@@ -11,7 +11,7 @@ import struct
 import subprocess
 import warnings
 import distro
-
+from picamera import PiCamera
 
 def detect_pi():
     #return platform.linux_distribution()[0].lower() == 'debian'
@@ -75,7 +75,8 @@ def server_ip(port):
 
 def check_requirements():
     if detect_pi():
-        camera = subprocess.check_output(['vcgencmd','get_camera']).decode().rstrip()
+        #camera = subprocess.check_output(['vcgencmd','get_camera']).decode().rstrip()
+        camera = PiCamera()
         if '0' in camera:
             warning('Camera not enabled or connected properly')
             return False
