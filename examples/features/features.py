@@ -6,13 +6,7 @@ import Pyro4
 from edurov import WebMethod
 
 
-def my_response(not_used, path):
-    """Will be called by the web server if it not able to process by itself"""
-    if path.startswith('/cpu_temp'):
-        cmds = ['/opt/vc/bin/vcgencmd', 'measure_temp']
-        return subprocess.check_output(cmds).decode()
-    else:
-        return None
+
 
 
 def control_motors():
@@ -34,7 +28,6 @@ def control_motors():
 web_method = WebMethod(
     index_file=os.path.join(os.path.dirname(__file__), 'index.html'),
     runtime_functions=control_motors,
-    custom_response=my_response
 )
 # Start serving the web page, blocks the program after this point
 web_method.serve()
